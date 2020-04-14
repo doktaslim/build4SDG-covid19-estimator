@@ -36,37 +36,21 @@ const covid19ImpactEstimator = (data) => {
     impactInfectionsByRequestedTime * 0.02
   );
   // eslint-disable-next-line max-len
-  const impactDollarsInFlight = Math.trunc(
-    (impactInfectionsByRequestedTime *
-      region.avgDailyIncomePopulation *
-      region.avgDailyIncomeInUSD) /
-      days
-  );
+  const impactDollarsInFlight = Math.trunc((impactInfectionsByRequestedTime * region.avgDailyIncomePopulation * region.avgDailyIncomeInUSD) / days);
 
   // severeImpact
   const severeImpactCurrentlyInfected = reportedCases * 50;
-  const severeImpactInfectionsByRequestedTime =
-    severeImpactCurrentlyInfected * 2 ** factor;
-  const severeCasesByRequestedTime = Math.trunc(
-    severeImpactInfectionsByRequestedTime * 0.15
-  );
-  const hospitalBedsByRequestedTime = Math.trunc(
-    totalHospitalBeds * 0.35 - severeCasesByRequestedTime
-  );
+  const severeImpactInfectionsByRequestedTime = severeImpactCurrentlyInfected * 2 ** factor;
+  const severeCasesByRequestedTime = Math.trunc(severeImpactInfectionsByRequestedTime * 0.15);
+  // eslint-disable-next-line max-len
+  const hospitalBedsByRequestedTime = Math.trunc(totalHospitalBeds * 0.35 - severeCasesByRequestedTime);
   const casesForICUByRequestedTime = Math.trunc(
     severeImpactInfectionsByRequestedTime * 0.05
   );
   // eslint-disable-next-line max-len
-  const casesForVentilatorsByRequestedTime = Math.trunc(
-    severeImpactInfectionsByRequestedTime * 0.02
-  );
+  const casesForVentilatorsByRequestedTime = Math.trunc(severeImpactInfectionsByRequestedTime * 0.02);
   // eslint-disable-next-line max-len
-  const dollarsInFlight = Math.trunc(
-    (severeImpactInfectionsByRequestedTime *
-      region.avgDailyIncomePopulation *
-      region.avgDailyIncomeInUSD) /
-      days
-  );
+  const dollarsInFlight = Math.trunc((severeImpactInfectionsByRequestedTime * region.avgDailyIncomePopulation * region.avgDailyIncomeInUSD) / days);
 
   const impact = {
     currentlyInfected: impactCurrentlyInfected,
